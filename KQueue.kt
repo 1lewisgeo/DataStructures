@@ -14,4 +14,6 @@ class KQueue<E>() : ISimpleQueue<E> {
 
     override fun size(): Int = list.size
 
+    override fun toString(): String = list.toString()
+
 }
