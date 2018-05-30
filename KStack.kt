@@ -2,9 +2,10 @@ import java.util.*
 import kotlin.test.assertFalse
 import kotlin.test.assertSame
 
-class KStack<E>() : ISimpleStack<E> {
+class KStack<E>() : ISimpleStack<E>, Iterable<E> {
 
-    private var arr = Array<Any?>(10, { null })
+    public var arr = Array<Any?>(10, { null })
+    get() = arr.filter(Objects::nonNull).toTypedArray()
 
     var ptr = 0
 
@@ -53,6 +54,12 @@ class KStack<E>() : ISimpleStack<E> {
     }
 
     override fun toString(): String = arr.filter { it != null }.toString()
+
+    override fun iterator(): Iterator<E> {
+
+        return arr.filter { it != null }.iterator().asSequence().toSet().reversed().iterator() as Iterator<E>
+
+    }
 
 }
 

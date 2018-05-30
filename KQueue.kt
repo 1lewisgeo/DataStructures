@@ -1,6 +1,6 @@
 import java.util.*
 
-class KQueue<E>() : ISimpleQueue<E> {
+class KQueue<E>() : ISimpleQueue<E>, Iterable<E> {
 
     private var list = LinkedList<E>()
 
@@ -15,5 +15,7 @@ class KQueue<E>() : ISimpleQueue<E> {
     override fun size(): Int = list.size
 
     override fun toString(): String = list.toString()
+
+    override fun iterator(): Iterator<E> = list.iterator()
 
 }
