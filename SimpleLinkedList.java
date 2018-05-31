@@ -124,6 +124,12 @@ public class SimpleLinkedList<E> implements ISimpleList<E> {
         return newList;
     }
 
+    /**
+     * Deletes a range of the list and returns the removed elements
+     * @param starti the start index
+     * @param num the amount of elements to remove
+     * @return the removed elements
+     */
     public SimpleLinkedList<E> deleteRange(int starti, int num) {
 
         Node<E> start = null, end = null, n = root;
@@ -196,6 +202,11 @@ public class SimpleLinkedList<E> implements ISimpleList<E> {
 
     }
 
+    /**
+     * Inserts all the elements sequentially
+     * @param index the index to insert all the elements at
+     * @param list the elements to insert
+     */
     public void insertAll(int index, SimpleLinkedList<E> list) {
 
         Node<E> n = root;

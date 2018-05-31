@@ -9,6 +9,9 @@ class KStack<E>() : ISimpleStack<E>, Iterable<E> {
 
     var ptr = 0
 
+    /**
+     * An internal function that resizes the internal array if it is full.
+     */
     internal fun resize() {
 
         if (ptr == arr.size) {

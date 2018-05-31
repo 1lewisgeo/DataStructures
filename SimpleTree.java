@@ -49,8 +49,29 @@ public class SimpleTree<E extends Comparable<? super E>> implements ISimpleTree<
 
     @Override
     public boolean delete(E element) {
-        // TODO NOT IMPLEMENTED YET
-        return false;
+
+        List<TreeNode<E>> list = elements();
+
+        boolean success = false;
+
+        for (TreeNode<E> tn : list) {
+
+            if (tn.getLeft() != null && tn.getLeft().getData().equals(element)) {
+                tn.setLeft(null);
+            } else if (tn.getRight() != null && tn.getRight().getData().equals(element)) {
+                tn.setRight(null);
+            }
+
+            if (tn.getData().equals(element)) {
+                list.remove(element);
+                tn = null;
+                success = true;
+            }
+
+        }
+
+        return success;
+
     }
 
     @Override
@@ -60,6 +81,11 @@ public class SimpleTree<E extends Comparable<? super E>> implements ISimpleTree<
 
     }
 
+    /**
+     * An internal method to get all the elements as a list
+     * @return a list of all the elements in the tree
+     *
+     */
     private List<TreeNode<E>> elements() {
 
         if (root == null) {
@@ -94,6 +120,120 @@ public class SimpleTree<E extends Comparable<? super E>> implements ISimpleTree<
 
     }
 
+    /**
+     * performs a depth first search on the tree
+     * @param element the element to search for
+     * @return true if the tree contains the element and false otherwise
+     */
+    public boolean depthFirstSearch(E element) {
+
+        ArrayList<TreeNode<E>> proc = new ArrayList<>();
+
+        List<TreeNode<E>> elements = elements();
+
+        TreeNode<E> node = root;
+
+        if (root.getLeft() != null && root.getRight() != null) {
+            if (root.getData().equals(element)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        while (true) {
+
+            if (node.getLeft() != null) {
+
+                node = node.getLeft();
+
+            } else if (node.getRight() != null) {
+
+                node = node.getRight();
+
+            } else /*(node.getLeft() == null && node.getRight() == null)*/ {
+
+                if (node.getData().equals(element)) {
+                    return true;
+                } else {
+                    proc.add(node);
+                }
+
+            }
+
+            elements.sort(Comparator.comparing(TreeNode::getData));
+
+            proc.sort(Comparator.comparing(TreeNode::getData));
+
+            if (elements.equals(proc)) {
+                break;
+            }
+
+        }
+
+        return false;
+
+    }
+
+    /**
+     * Performs a breadth first search on the tree
+     * @param element the element to search for
+     * @return true if the tree contains the element, false otherwise
+     */
+    public boolean breadthFirstSearch(E element) {
+
+        ArrayList<TreeNode<E>> list = new ArrayList<>();
+
+        ArrayList<TreeNode<E>> currentNodes = new ArrayList<TreeNode<E>>();
+
+        currentNodes.add(root);
+
+        /*if (root.getLeft() != null && root.getRight() != null) {
+            if (root.getData().equals(element)) {
+                return true;
+            } else {
+                return false;
+            }
+        }*/
+
+        while (true) {
+
+            for (TreeNode<E> tn : currentNodes) {
+
+                if (tn.getData().equals(element)) {
+                    return true;
+                }
+
+                if (tn.getLeft() != null) {
+
+                    list.add(tn.getLeft());
+
+                }
+
+                if (tn.getRight() != null) {
+
+                    list.add(tn.getRight());
+
+                }
+
+            }
+
+            currentNodes.clear();
+
+            currentNodes.addAll(list);
+
+            list.clear();
+
+            if (currentNodes.stream().allMatch(tn -> tn.getLeft() == null && tn.getRight() == null)) {
+                break;
+            }
+
+        }
+
+        return false;
+
+    }
+
     public static void main(String[] args) {
 
         SimpleTree<Integer> tree = new SimpleTree<>();
@@ -105,6 +245,18 @@ public class SimpleTree<E extends Comparable<? super E>> implements ISimpleTree<
         tree.insert(2);
 
         System.out.println(tree.size());
+
+        System.out.println(tree.delete(2));
+
+        System.out.println(tree.size());
+
+        System.out.println(tree.depthFirstSearch(5));
+
+        System.out.println(tree.depthFirstSearch(3));
+
+        System.out.println(tree.breadthFirstSearch(5));
+
+        System.out.println(tree.breadthFirstSearch(3));
 
     }
 

@@ -1,5 +1,10 @@
 import kotlin.math.floor
 
+/**
+ * Coverts a decimal number into base2
+ * @param n a base10 number
+ * @return the base2 representation of n
+ */
 fun toBinary(n: Int): String {
 
     val q = KQueue<Int>()
@@ -26,6 +31,11 @@ fun toBinary(n: Int): String {
 
 }
 
+/**
+ * Calculates the specified element of the fibonacci sequence using @see KQueue
+ * @param n which element of the sequence is requested
+ * @return the element n of the fibonacci sequence
+ */
 fun qfib(n: Int): String {
 
     if (n == 1) {
@@ -60,6 +70,11 @@ fun qfib(n: Int): String {
 
 }
 
+/**
+ * Determines whether or not the brackets in a string are balanced
+ * @param input the string to test for balance
+ * @return a boolean value; true if brackets are balanced, false otherwise
+ */
 fun isBalanced(input: String): Boolean {
 
     input.run { count { it == '(' } == count { it == ')' } &&
@@ -94,6 +109,11 @@ fun isBalanced(input: String): Boolean {
 
 }
 
+/**
+ * Converts infix notation to postfix notation
+ * @param input a space separated math statement with infix notation
+ * @return the postfix representation of the input math statement
+ */
 fun infixToPostfix(input: String): String {
 
     val operators = arrayOf("+", "-", "*", "/")
@@ -172,6 +192,11 @@ fun infixToPostfix(input: String): String {
 
 }
 
+/**
+ * Calculates the result of a postfix math statement
+ * @param input the postfix math statement to calculate
+ * @return the numberic result of the math statement
+ */
 fun postfixCalc(input: String): Double {
 
     val proc = input.split(" ").toList().toMutableList()
