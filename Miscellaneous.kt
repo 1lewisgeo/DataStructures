@@ -23,7 +23,7 @@ fun toBinary(n: Int): String {
             break
         }
 
-        proc = floor(proc / 2.0).toInt() + digit.let { if (it == 0) 1 else -1 }
+        proc = floor(proc / 2.0).toInt() + digit.let { if (it == 0) 1 else -1 } // convert digit to 1 or -1
 
     }
 
@@ -77,14 +77,17 @@ fun qfib(n: Int): String {
  */
 fun isBalanced(input: String): Boolean {
 
+    // Pre-check; ensures there's an even number of opening and closing brackets
     input.run { count { it == '(' } == count { it == ')' } &&
                     count { it == '[' } == count { it == ']' } &&
                         count { it == '{' } == count { it == '}' } }.let { if (!it) return@isBalanced false }
 
+    // Map opening brackets to closing brackets
     val m = mapOf(')' to '(', ']' to '[', '}' to '{')
 
     val stack = KStack<Char>()
 
+    // Analogous to: for (int i = 0; i < input.length(); i++)
     for (i in input.indices) {
 
         val brac = input[i]
@@ -203,7 +206,7 @@ fun postfixCalc(input: String): Double {
 
     while (proc.size > 1) {
 
-        val operator = proc.indexOfFirst { it in arrayOf("*", "/", "+", "-") }
+        val operator = proc.indexOfFirst { it in arrayOf("*", "/", "+", "-") } // Find the index of the first operator
 
         val op1 = operator - 2
 
@@ -211,12 +214,12 @@ fun postfixCalc(input: String): Double {
 
         println("op: $operator, op1: $op1. op2: $op2")
 
-        val result: Double = when(proc[operator]) {
+        val result: Double = when(proc[operator]) { // switch-case statement
             "*" -> proc[op1].toDouble() * proc[op2].toDouble()
             "/" -> proc[op1].toDouble() / proc[op2].toDouble()
             "+" -> proc[op1].toDouble() + proc[op2].toDouble()
             "-" -> proc[op1].toDouble() - proc[op2].toDouble()
-            else -> Double.MIN_VALUE // Will never happen
+            else -> throw RuntimeException("wtf") // Will never happen
         }
 
         proc.removeAt(operator)

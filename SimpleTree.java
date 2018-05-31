@@ -151,7 +151,7 @@ public class SimpleTree<E extends Comparable<? super E>> implements ISimpleTree<
 
                 node = node.getRight();
 
-            } else /*(node.getLeft() == null && node.getRight() == null)*/ {
+            } else {
 
                 if (node.getData().equals(element)) {
                     return true;
@@ -188,14 +188,6 @@ public class SimpleTree<E extends Comparable<? super E>> implements ISimpleTree<
 
         currentNodes.add(root);
 
-        /*if (root.getLeft() != null && root.getRight() != null) {
-            if (root.getData().equals(element)) {
-                return true;
-            } else {
-                return false;
-            }
-        }*/
-
         while (true) {
 
             for (TreeNode<E> tn : currentNodes) {
@@ -224,6 +216,7 @@ public class SimpleTree<E extends Comparable<? super E>> implements ISimpleTree<
 
             list.clear();
 
+            // If all current nodes are leaves
             if (currentNodes.stream().allMatch(tn -> tn.getLeft() == null && tn.getRight() == null)) {
                 break;
             }

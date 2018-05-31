@@ -48,7 +48,7 @@ class KStack<E>() : ISimpleStack<E>, Iterable<E> {
         var count = 0
 
         for (item in arr) {
-            item?.let { count++ }
+            item?.let { count++ } // Increment count if item is not null
         }
 
         return count
@@ -94,5 +94,23 @@ fun main(args: Array<String>) {
     assert(stack.isEmpty)
 
     assert(stack.toString() == "[]")
+
+    stack.push(1)
+
+    stack.push(5)
+
+    stack.push(9)
+
+    stack.push(7)
+
+    assert(stack.size() == 4)
+
+    assert(stack.isEmpty == false)
+
+    assert(stack.all { it < 10 })
+
+    assert(stack.pop() == 7)
+
+    assert(stack.toString() == "[1, 5, 9]")
 
 }
