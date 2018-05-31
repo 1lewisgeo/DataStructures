@@ -4,8 +4,7 @@ import kotlin.test.assertSame
 
 class KStack<E>() : ISimpleStack<E>, Iterable<E> {
 
-    public var arr = Array<Any?>(10, { null })
-    get() = arr.filter(Objects::nonNull).toTypedArray()
+    private var arr = Array<Any?>(10, { null })
 
     var ptr = 0
 
